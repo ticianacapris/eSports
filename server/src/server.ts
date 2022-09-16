@@ -6,6 +6,7 @@ import { convertHourStringToMinutes } from "./utils/convert-hour-string-to-minut
 import { convertMinutesToHourString } from "./utils/convert-minutes-to-hour-string";
 
 const app = express();
+app.use(express.json()) ;
 
 
 
@@ -30,8 +31,8 @@ app.get('/games', async (request, response) => {
 app.post('/games/:id/ads', async (request, response) => {
   const gameId = request.params.id;
   const body: any = request.body;
-
-  const ad = await prisma.ad.create({
+  console.log(body);
+/*   const ad = await prisma.ad.create({
     data: {
       gameId,
       name: body.name,
@@ -42,9 +43,10 @@ app.post('/games/:id/ads', async (request, response) => {
       hourEnd: convertHourStringToMinutes(body.hourEnd),
       useVoiceChannel: body.useVoiceChannel,
     },
-  })
+  }) */
+  
+  return response.status(201).json(body);
 
-  return response.status(201).json(ad);
 });
 
 app.get('/games/:id/ads', async (request, response) => {
